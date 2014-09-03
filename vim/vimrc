@@ -1,0 +1,216 @@
+""""""""""""""""""""
+" This is .vimrc uses NeoBundle so it assumes you have it installed.
+" Run the following script to install it on Unix/Linux or Mac OS X
+" $ curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+
+" Use Vim settings, rather than VI settings.
+if has('vim_starting')
+	set nocompatible
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NeoBundle required
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call neobundle#begin(expand('~/.vim/bundle/' ))
+NeoBundleFetch 'Shougo/neobundle.vim'                      " Let NeoBundle manage NeoBundle
+
+" List of plugins to load
+NeoBundle 'bling/vim-airline'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'garbas/vim-snipmate'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'scrooloose/nerdtree'
+
+call neobundle#end()
+
+filetype plugin indent on
+NeoBundleCheck
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set title                                                  " Set terminal title
+set encoding=utf-8                                         " Set Unicode by default
+let mapleader=","                                          " Set map leader to ','
+
+set hidden                                                 " Hide buffers instead of closing
+set history=100                                            " Size of ':' command history and search
+set undolevels=100                                         "
+
+set autoread                                               " Auto read when file is changed on disk
+set laststatus=2                                           " Always show status line
+
+set noswapfile                                             " Don't generate swap file
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UI config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set number                                                 " Show line numbers
+set cursorline                                             " Highlight current line
+set ruler                                                  " Show cursor's line and column
+set scrolloff=4                                            " Minimum amount of lines above/below the cursor
+set nowrap                                                 " Avoids line wrapping
+set textwidth=120                                          " Set width to 120 columns
+set colorcolumn=+1                                         " Set a column at textwidth+1
+
+set showmatch                                              " Show matching brackets when cursor is over them
+set mat=2                                                  " How long to blink when matching, in tenths of second
+
+set wildmenu                                               " Turn WiLd menu on
+set wildignore=*.o,*~,*.swp,*.class                        " Ignore compiled and swapfiles
+set wildmode=longest:full,full                             " First tab completes to longest common string
+                                                           " then invokes wildmenu
+
+set lazyredraw
+set visualbell                                             " No annoying bell, just flash screen
+
+set backspace=eol,indent,start                             " Sets bs behaviour as it should work
+set whichwrap+=<,>,[,]                                     " Move to previous/next line when on first/last character
+
+set list                                                   " Turns on display of unprintable characters
+set listchars=tab:▸\ ,eol:¬,trail:·,extends:#,nbsp:·       " Which unprintable characters to display and how
+
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'           " Highglight merge conflicts
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tab and indent behaviour
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set noexpandtab                                            " Don't convert tabs to spaces
+set autoindent                                             " Sets autoindent
+set copyindent                                             " Copy previous indentation
+set shiftwidth=3
+set shiftround                                             " Use multiple of shiftwidth when indenting with '<'/'>'
+set tabstop=3                                              " Tab size is 3
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Searches
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hlsearch                                               " Highlight search resutls
+set incsearch                                              " Show matches as you type
+set ignorecase                                             " Case insensitive search
+set smartcase                                              " If there is a capital letter in search case-sensitive
+
+" Search with very magic, regexp as they should
+nnoremap / /\v
+vnoremap / /\v
+
+" Clear highlighted search elements
+nnoremap <silent> <leader><space> :nohlsearch<CR>
+
+set gdefault                                               " Global replace by default
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colours and fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable                                              " Enable syntax highlighting
+set background=dark
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Movement, split windows
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Move up/down normally when going through wrapped lines
+nmap <Up> k
+nmap <Down> j
+nnoremap j gj
+nnoremap k gk
+
+set splitbelow                                             " New horizontal splits go below
+set splitright                                             " New vertical splits go to the right
+
+" Switch split windows with control + hjkl
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Incidentally allow also with control + arrows
+map <C-Left> <C-w>h
+map <C-Down> <C-w>j
+map <C-Up> <C-w>k
+map <C-Right> <C-w>l
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Folding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set foldenable                                             " Enable folding
+set foldlevelstart=10
+set foldnestmax=10                                         " Nested folds
+set foldmethod=indent                                      " Fold based on indent level
+
+" Map space to open/close fold
+nnoremap <Space> za
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key mapping
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Toggle paste mode
+nmap <leader>o :set paste!<CR>
+
+" Save with Control+s
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
+
+" Remove trailing whitespace
+nnoremap <silent> <leader>rw :%s/\s\+$//<CR>:let @/=''<CR>
+
+" Toggle display of unprintable characters
+nmap <leader>tw :set list!<CR>
+
+" Edit ~/.vimrc file in new vertical split
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+
+" Source ~/.vimrc file
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Auto commands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""
+" Airline
+""""""""""""""""""""""""""""""""""""""""
+let g:airline#extensions#tabline#enabled=1                 " Enable tab line
+let g:airline#extensions#whitespace#mixed_indent_algo=1
+
+""""""""""""""""""""""""""""""""""""""""
+" Syntastic
+""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""
+" PHP
+" phpcs: pear install PHP_CodeSniffer
+let g:syntastic_php_checkers = ['php', 'phpcs']
+let g:syntastic_php_phpcs_args='--tab-width=3'
+let g:syntastic_php_phpcs_args='--report_width=120'
+<<<<<<< HEAD
+
+""""""""""""""""""""""""""""""""""""""""
+" NERDTree
+""""""""""""""""""""""""""""""""""""""""
+" Toggle NERDTree panel
+map <C-n> :NERDTreeToggle<CR>
+=======
+>>>>>>> e63493a71d9b649ebf34b87bc8073e9b8d599182

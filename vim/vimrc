@@ -205,12 +205,11 @@ let g:airline#extensions#whitespace#mixed_indent_algo=1
 let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args='--tab-width=3'
 let g:syntastic_php_phpcs_args='--report_width=120'
-<<<<<<< HEAD
 
 """"""""""""""""""""""""""""""""""""""""
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""
 " Toggle NERDTree panel
 map <C-n> :NERDTreeToggle<CR>
-=======
->>>>>>> e63493a71d9b649ebf34b87bc8073e9b8d599182
+
+

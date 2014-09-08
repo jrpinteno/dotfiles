@@ -136,10 +136,14 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " Incidentally allow also with control + arrows
-map <C-Left> <C-w>h
-map <C-Down> <C-w>j
-map <C-Up> <C-w>k
-map <C-Right> <C-w>l
+"map <C-Left> <C-w>h
+"map <C-Down> <C-w>j
+"map <C-Up> <C-w>k
+"map <C-Right> <C-w>l
+
+" Switch between buffers in current window
+map <C-Right> :bnext<CR>
+map <C-Left> :bprevious<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Folding

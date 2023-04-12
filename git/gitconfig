@@ -1,0 +1,16 @@
+[includeIf "path:~/.gitconfig.local"]
+	path = = ~/.gitconfig.local
+
+[core]
+	pager = diff-so-fancy | less --tabs=3 -RFX
+	editor = vim
+
+[status]
+	submoduleSummary = true
+
+[alias]
+	logg = log --graph --decorate --oneline --all
+	dfs = diff --staged
+	main = checkout main
+	dev = checkout develop
+	soft = reset --soft HEAD^

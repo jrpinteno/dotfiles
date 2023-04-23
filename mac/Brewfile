@@ -1,12 +1,21 @@
 tap "homebrew/cask-fonts"
 
 # CLI tools / formulae
+brew "bat"           # Cat clone with syntax highlighting and Git integration
+brew "broot"         # Tree navigation
 brew "diff-so-fancy"
+brew "fzf"           # Fuzzy finder
+brew "gping"
+brew "lsd"           # Rewrite of ls
+brew "mcfly"         # Navigate shell history
 brew "neovim"
-brew "scc"
+brew "scc"           # Tool for counting code lines
+brew "tldr"          # Simplified man pages on steroids with examples
 brew "wget"
 
 cask "font-fira-code"
+cask "font-fira-code-nerd-font"
+
 
 # Include local Brewfile
 Brewfile = File.expand_path("~/.config/Brewfile.local")

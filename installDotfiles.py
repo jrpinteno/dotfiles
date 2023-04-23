@@ -42,7 +42,7 @@ def install_tools(is_mac):
 
     # Install Homebrew if not installed
     if subprocess.call(["which", "brew"]):
-        status = subprocess.run(["sh", "-c", "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"])
+        status = subprocess.run(["sh", "-c", "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"])
 
         if status.returncode:
             print(f"Could not install Homebrew. [errorCode: {status.returncode}, message: {status.stderr}]")

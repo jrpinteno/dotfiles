@@ -54,11 +54,28 @@ def install_tools():
     install_from_brew("nvim", "NeoVim")
     install_from_brew("diff-so-fancy")
 
-    try
-        import other_tools
+    try:
+        sys.path.append(os.path.expanduser("~/.config"))
+        from other_tools import cask_apps, apps
     except ImportError:
-        print("Could not find other_tools.py")
+        if 'cask_apps' not in locals():
+            cask_apps = {}
 
+        if 'apps' not in locals():
+            apps = {}
+
+    # Installing cask apps
+    for app, name in cask_apps.items():
+        if not subprocess.call(["which", app]):
+            print(f"{name} already installed.")
+        else:
+            subprocess.run(["brew", "install", "--cask", app, "--appdir", os.path.expanduser(home_application_directory]))
+
+    for app, name in apps.items():
+        if not subprocess.call(["which", app]):
+            print(f"{name} already installed.")
+        else:
+            subprocess.run(["brew", "install", app)
 
 def install_from_brew(tool, name="", directory=""):
     if subprocess.run("which", tool):

@@ -19,7 +19,7 @@ def create_symlink(source, destination):
 
 
 def install_dotfiles(is_mac):
-    dotfiles_repository = "https://github.com/jrpinteno/dotfiles.git"
+    dotfiles_repository = "git@github.com:jrpinteno/dotfiles.git"
     dotfiles_directory = os.path.expanduser("~/dotfiles")
 
     if os.path.exists(dotfiles_directory):

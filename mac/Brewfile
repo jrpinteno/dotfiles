@@ -1,0 +1,14 @@
+tap "homebrew/cask-fonts"
+
+# CLI tools / formulae
+brew "diff-so-fancy"
+brew "neovim"
+brew "scc"
+brew "wget"
+
+cask "font-fira-code"
+
+# Include local Brewfile
+Brewfile = File.expand_path("~/.config/Brewfile.local")
+instance_eval(File.read(Brewfile)) if File.exist?(Brewfile)
+

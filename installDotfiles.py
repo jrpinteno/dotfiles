@@ -15,8 +15,6 @@ def create_symlink(source, destination):
                 os.symlink(source, destination)
         else:
             print(f"Error: {destination} already exists as a {'directory' if os.path.isdir(destination) else 'file'}")
-            sys.exit(1)
-
 
 def install_dotfiles(is_mac):
     dotfiles_repository = "git@github.com:jrpinteno/dotfiles.git"

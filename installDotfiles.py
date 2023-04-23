@@ -62,11 +62,10 @@ def main():
 
     args = parser.parse_args()
 
-    if args.tools:
-        install_tools(args.mac)
-
     install_dotfiles(args.mac)
 
+    if args.tools:
+        install_tools(args.mac)
 
 if __name__ == "__main__":
     main()

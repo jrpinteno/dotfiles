@@ -36,13 +36,13 @@ def install_dotfiles(is_mac):
 def install_tools(is_mac):
     # Install Oh-My-Zsh
     if not os.path.exists(os.path.expanduser("~/.oh-my-zsh")):
-        subprocess.run(["sh", "-c", "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"])
+        subprocess.run(["/bin/sh", "-c", "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"])
     else:
         print("Oh-My-Zsh already installed.")
 
     # Install Homebrew if not installed
     if subprocess.call(["which", "brew"]):
-        status = subprocess.run(["sh", "-c", "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"])
+        status = subprocess.run(["/bin/sh", "-c", "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"])
 
         if status.returncode:
             print(f"Could not install Homebrew. [errorCode: {status.returncode}, message: {status.stderr}]")

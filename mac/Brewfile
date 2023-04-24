@@ -2,6 +2,7 @@ tap "homebrew/cask-fonts"
 
 # CLI tools / formulae
 brew "bat"           # Cat clone with syntax highlighting and Git integration
+brew "bat-extras"    # Some bash scripts on top of bat
 brew "broot"         # Tree navigation
 brew "diff-so-fancy"
 brew "fzf"           # Fuzzy finder

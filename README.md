@@ -1,8 +1,15 @@
 # dotfiles
 ## Installation
 
+You can use either the python script
 ```bash
-$ curl -fsSL https://raw.githubusercontent.com/jrpinteno/dotfiles/master/installDotfiles.py | python
+$ curl -fsSL https://raw.githubusercontent.com/jrpinteno/dotfiles/master/installDotfiles.py | python3
+```
+
+or the bash script
+
+```bash
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/jrpinteno/dotfiles/master/installDotfiles.sh)
 ```
 
 ## Requirements

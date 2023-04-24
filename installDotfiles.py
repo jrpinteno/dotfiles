@@ -1,5 +1,6 @@
 import argparse
 import os
+import platform
 import subprocess
 import sys
 
@@ -41,29 +42,29 @@ def install_tools(is_mac):
         print("Oh-My-Zsh already installed.")
 
     # Install Homebrew if not installed
-    if subprocess.call(["which", "brew"]):
-        status = subprocess.run(["/bin/bash", "-c", "eval \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\""])
-
-        if status.returncode:
-            print(f"Could not install Homebrew. [errorCode: {status.returncode}, message: {status.stderr}]")
-            sys.exit(1)
-    else:
-        print("Homebrew already installed.")
-
     if is_mac:
+        if subprocess.call(["which", "brew"]):
+            status = subprocess.run(["/bin/bash", "-c", "eval \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\""])
+
+            if status.returncode:
+                print(f"Could not install Homebrew. [errorCode: {status.returncode}, message: {status.stderr}]")
+                sys.exit(1)
+        else:
+            print("Homebrew already installed.")
+
         subprocess.run(["brew", "bundle", "--file", os.path.expanduser("~/dotfiles/mac/Brewfile")])
 
 def main():
     parser = argparse.ArgumentParser(description="Setup new device configurations.")
     parser.add_argument("-t", "--tools", help="Install Oh-My-Zsh", action="store_true")
-    parser.add_argument("-m", "--mac", help="Install mac related tools", action="store_true")
 
     args = parser.parse_args()
+    is_mac = plaftorm.system() == 'Darwin'
 
-    install_dotfiles(args.mac)
+    install_dotfiles(is_mac)
 
     if args.tools:
-        install_tools(args.mac)
+        install_tools(is_mac)
 
 if __name__ == "__main__":
     main()

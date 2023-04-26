@@ -19,6 +19,8 @@ vim.opt.listchars = {
 	nbsp = "·",
 }
 
+-- Move to previous/next line when on first/last column
+vim.opt.whichwrap:append("<,>,[,]")
 vim.opt.cmdheight = 3
 vim.opt.pumheight = 12
 

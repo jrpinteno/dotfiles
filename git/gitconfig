@@ -12,5 +12,6 @@
 	logg = log --graph --decorate --oneline --all
 	dfs = diff --staged
 	main = checkout main
+	master = checkout master
 	dev = checkout develop
 	soft = reset --soft HEAD^

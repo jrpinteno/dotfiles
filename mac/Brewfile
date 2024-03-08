@@ -16,6 +16,7 @@ brew "wget"
 
 cask "font-fira-code"
 cask "font-fira-code-nerd-font"
+cask "font-monaspace"
 
 
 # Include local Brewfile

@@ -1,17 +1,46 @@
-[include]
-	path = ~/.gitconfig.local
+[includeIf "gitdir:~/Work/"]
+	path = ~/.gitconfig.work
+
+[includeIf "gitdir:~/Programming/"]
+	path = ~/.gitconfig.personal
+
+[color "branch"]
+	current = cyan reverse
+	local = green
+	remote = red
+
+[color "status"]
+	added = cyan
+	changed = yellow
+	untracked = red
 
 [core]
 	pager = diff-so-fancy | less --tabs=3 -RF
-	editor = vim
+	editor = nvim
 
 [status]
 	submoduleSummary = true
 
+[push]
+	autoSetupRemote = true
+
 [alias]
+	amend = commit --amend
+	ci = commit
+	co = checkout
+	cb = checkout -b
+	cp = cherry-pick
+
+	# List all aliases
+	la = "!git config -l | grep alias | cut -c 7-"
 	logg = log --graph --decorate --oneline --all
+
+	# Diff only staged files
 	dfs = diff --staged
 	main = checkout main
 	master = checkout master
 	dev = checkout develop
 	soft = reset --soft HEAD^
+
+	# Show details about most recent commit
+	last = log -1 HEAD --stat

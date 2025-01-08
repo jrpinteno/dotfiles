@@ -18,8 +18,6 @@ cask "font-fira-code"
 cask "font-fira-code-nerd-font"
 cask "font-monaspace"
 
-
 # Include local Brewfile
 Brewfile = File.expand_path("~/.config/Brewfile.local")
 instance_eval(File.read(Brewfile)) if File.exist?(Brewfile)
-

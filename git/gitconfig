@@ -30,6 +30,10 @@
 	co = checkout
 	cb = checkout -b
 	cp = cherry-pick
+	pushfl = push --force-with-lease
+	ra = rebase --abort
+	rc = rebase --continue
+	ri = rebase --interactive
 
 	# List all aliases
 	la = "!git config -l | grep alias | cut -c 7-"
@@ -44,3 +48,4 @@
 
 	# Show details about most recent commit
 	last = log -1 HEAD --stat
+

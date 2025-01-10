@@ -1,0 +1,11 @@
+puts "Homebrew - Setting up home..."
+
+cask "calibre"
+cask "discord"
+cask "iina"
+cask "logi-options+"
+cask "signal"
+cask "slack"
+cask "telegram"
+cask "vial"
+cask "whatsapp"

@@ -1,0 +1,21 @@
+puts "Homebrew - Installing dev tools..."
+
+# CLI tools / formulae
+
+brew "aria2"
+brew "bfg"           # Repo cleaner (https://rtyley.github.io/bfg-repo-cleaner/)
+brew "diff-so-fancy" # The best-lookin' diffs. (https://github.com/so-fancy/diff-so-fancy)
+brew "difftastic"    # Structural diff based on syntax (https://github.com/Wilfred/difftastic)
+brew "fx"            # Terminal JSON viewer (https://github.com/antonmedv/fx)
+brew "git-extras"    # git utilities (https://github.com/tj/git-extras)
+brew "glow"          # Render markdown on the CLI, with pizzazz! (https://github.com/charmbracelet/glow)
+brew "neovim"        # Vim fork (https://neovim.io/) (https://github.com/neovim/neovim)
+brew "scc"           # Tool for counting code lines
+brew "shellcheck"    # Shell script static analysis tool (https://github.com/koalaman/shellcheck)
+# brew "swiftlint"   # Swift linter (https://github.com/realm/SwiftLint)
+brew "xcodes"
+
+cask "gitup"
+cask "vscodium"
+cask "wwdc"
+cask "xcodes"

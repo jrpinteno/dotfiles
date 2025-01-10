@@ -95,6 +95,7 @@ install_homebrew() {
 	}
 
 	create_symlink "$HOME/dotfiles/mac/Brewfile" "$HOME/Brewfile" "Brewfile (macOS only)"
+	create_symlink "$HOME/dotfiles/mac/Brewfile" "$HOME/Brewfile" "Brewfile (macOS only)"
 
 	print_message "$GREEN" "Homebrew installed successfully."
 }
@@ -113,10 +114,29 @@ create_config_symlinks() {
 }
 
 main() {
+	if [[ -z "$1" ]]; then
+		print_message "$RED "Usage: $0 [home|work]
+		exit 1
+	fi
+
 	print_message "$CYAN" "Starting setup..."
 
 	local os_type
 	os_type="$(uname -s)"
+
+	case "$1" in
+		home)
+			export DOTFILES_ENV="home"
+			;;
+		work)
+			export DOTFILES_ENV="work"
+			;;
+		*)
+			print_message "$RED" "Invalid environment: $1"
+			print_message "$CYAN" "Usage: $0 [home|work]"
+			exit 1
+			;;
+	esac
 
 	install_oh_my_zsh
 	clone_dotfiles

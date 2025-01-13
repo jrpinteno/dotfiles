@@ -16,7 +16,7 @@ brew "wget"
 
 cask_args appdir: "~/Applications"
 
-cask "1password"
+cask "1password" { appdir: "/Applications" }
 cask "boop"                     # Tool to perform various text operations
 cask "font-fira-code"
 cask "font-fira-code-nerd-font"
@@ -24,30 +24,36 @@ cask "font-monaspace"
 cask "iterm2"
 cask "librewolf"
 
-userEnvironment = ENV["HOMEBREW_USER_ENVIRONMENT"]
+puts "===== DEBUG INFO ====="
+puts "Current shell is: #{ENV['SHELL']}"
+puts "Environment Variables:"
+ENV.each { |key, value| puts "#{key}=#{value}" }
+puts "===== END DEBUG INFO ====="
 
-if userEnvironment.nil? || userEnvironment.empty?
+homebrewUserEnvironment = ENV["HOMEBREW_USER_ENVIRONMENT"]
+
+if homebrewUserEnvironment.nil? || homebrewUserEnvironment.empty?
 	puts "HOMEBREW_USER_ENVIRONMENT is not set. Please set it to 'home' or 'work'."
 	exit(1)
 else
-	puts "HOMEBREW_USER_ENVIRONMENT is set to: #{userEnvironment}"
+	puts "HOMEBREW_USER_ENVIRONMENT is set to: #{homebrewUserEnvironment}"
 end
 
-if userEnvironment.include?("home") && userEnvironment.include?("work")
+if homebrewUserEnvironment.include?("home") && homebrewUserEnvironment.include?("work")
 	puts "Error: HOMEBREW_USER_ENVIRONMENT cannot include both 'home' and 'work'."
 	exit(1)
 end
 
 brewfiles_to_load = []
 
-case userEnvironment
-when /home/
+case homebrewUserEnvironment
+when /\bhome\b/
 	brewfiles_to_load << File.expand_path("~/.config/homebrew/Brewfile.home")
-when /work/
+when /\bwork\b/
 	brewfiles_to_load << File.expand_path("~/.config/homebrew/Brewfile.work")
 end
 
-if userEnvironment.include?("dev")
+if homebrewUserEnvironment.include?("dev")
 	brewfiles_to_load << File.expand_path("~/.config/homebrew/Brewfile.dev")
 end
 

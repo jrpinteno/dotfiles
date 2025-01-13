@@ -2,6 +2,7 @@ puts "Homebrew - Setting up home..."
 
 cask "calibre"
 cask "discord"
+cask "google-chrome"
 cask "iina"
 cask "logi-options+"
 cask "signal"

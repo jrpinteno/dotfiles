@@ -5,9 +5,6 @@
 [includeIf "gitdir:~/Work/"]
 	path = ~/.gitconfig.work
 
-[url "git@github.com:"]
-	insteadOf = https://github.com/
-
 [color "branch"]
 	current = cyan reverse
 	local = green

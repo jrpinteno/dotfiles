@@ -1,6 +1,7 @@
 puts "Homebrew - Setting up home..."
 
 cask "calibre"
+cask "chatgpt"
 cask "discord"
 cask "google-chrome"
 cask "iina"

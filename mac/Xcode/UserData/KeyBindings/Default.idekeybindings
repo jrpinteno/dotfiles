@@ -8,6 +8,30 @@
 		<array>
 			<dict>
 				<key>Action</key>
+				<string>newFolder:</string>
+				<key>Alternate</key>
+				<string>NO</string>
+				<key>CommandGroupID</key>
+				<string>IDENewGrouping</string>
+				<key>CommandID</key>
+				<string>Xcode.IDEKit.CmdDefinition.NewFolder</string>
+				<key>Group</key>
+				<string>File Menu</string>
+				<key>GroupID</key>
+				<string>Xcode.IDEKit.MenuDefinition.Main</string>
+				<key>GroupedAlternate</key>
+				<string>NO</string>
+				<key>Keyboard Shortcut</key>
+				<string>~@n</string>
+				<key>Navigation</key>
+				<string>NO</string>
+				<key>Parent Title</key>
+				<string>New</string>
+				<key>Title</key>
+				<string>Folder</string>
+			</dict>
+			<dict>
+				<key>Action</key>
 				<string>renameRefactor:</string>
 				<key>Alternate</key>
 				<string>NO</string>
@@ -79,6 +103,22 @@
 				<string>Rename…</string>
 			</dict>
 		</array>
+		<key>Version</key>
+		<integer>3</integer>
+	</dict>
+	<key>Text Key Bindings</key>
+	<dict>
+		<key>Key Bindings</key>
+		<dict>
+			<key>^"</key>
+			<string>insertDoubleQuoteIgnoringSubstitution:</string>
+			<key>^'</key>
+			<string>insertSingleQuoteIgnoringSubstitution:</string>
+			<key>^&gt;</key>
+			<string>previousCompletion:</string>
+			<key>^\@</key>
+			<string>setMark:</string>
+		</dict>
 		<key>Version</key>
 		<integer>3</integer>
 	</dict>

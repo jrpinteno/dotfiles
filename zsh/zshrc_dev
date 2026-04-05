@@ -27,11 +27,11 @@ nukexcode() {
 	killall Xcode
 
 	# Clean Xcode Derived Data
-	rm -Rf ~/Library/Developer/Xcode/DerivedData
+	rm -Rf "$HOME/Library/Developer/Xcode/DerivedData"
 
 	# Delete Swift Package Manager (SPM) cache
-	rm -Rf ~/Library/Caches/org.swift.swiftpm
-	rm -Rf ~/Library/Caches/com.apple.dt.Xcode
+	rm -Rf "$HOME/Library/Caches/org.swift.swiftpm"
+	rm -Rf "$HOME/Library/Caches/com.apple.dt.Xcode"
 
 	echo "Xcode nuking completed."
 }

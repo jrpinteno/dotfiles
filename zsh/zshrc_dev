@@ -1,3 +1,25 @@
+setupxcode() {
+	local dotfiles_dir="$HOME/dotfiles"
+	local xcode_dir="$HOME/Library/Developer/Xcode"
+	local userdata_dir="$xcode_dir/UserData"
+
+	if [ ! -d "$xcode_dir" ]; then
+		echo "Xcode not found. Install it first."
+		return 1
+	fi
+
+	echo "Setting up Xcode symlinks..."
+
+	ln -s "$dotfiles_dir/mac/Xcode/Templates" "$xcode_dir/Templates" 2>/dev/null && echo "Templates linked." || echo "Templates already exist."
+
+	mkdir -p "$userdata_dir"
+	ln -s "$dotfiles_dir/mac/Xcode/UserData/CodeSnippets" "$userdata_dir/CodeSnippets" 2>/dev/null && echo "CodeSnippets linked." || echo "CodeSnippets already exist."
+	ln -s "$dotfiles_dir/mac/Xcode/UserData/FontAndColorThemes" "$userdata_dir/FontAndColorThemes" 2>/dev/null && echo "FontAndColorThemes linked." || echo "FontAndColorThemes already exist."
+	ln -s "$dotfiles_dir/mac/Xcode/UserData/KeyBindings" "$userdata_dir/KeyBindings" 2>/dev/null && echo "KeyBindings linked." || echo "KeyBindings already exist."
+
+	echo "Xcode setup completed."
+}
+
 nukexcode() {
 	echo "Cleaning up Xcode..."
 

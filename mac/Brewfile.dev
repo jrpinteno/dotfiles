@@ -2,22 +2,39 @@ puts "Homebrew - Installing dev tools..."
 
 # CLI tools / formulae
 
-brew "aria2"
-brew "bfg"           # Repo cleaner (https://rtyley.github.io/bfg-repo-cleaner/)
-brew "diff-so-fancy" # The best-lookin' diffs. (https://github.com/so-fancy/diff-so-fancy)
-brew "difftastic"    # Structural diff based on syntax (https://github.com/Wilfred/difftastic)
-brew "fx"            # Terminal JSON viewer (https://github.com/antonmedv/fx)
-brew "git-cal"       # View commits calendar (https://github.com/k4rthik/git-cal)
-brew "git-extras"    # git utilities (https://github.com/tj/git-extras)
-brew "glow"          # Render markdown on the CLI, with pizzazz! (https://github.com/charmbracelet/glow)
-brew "neovim"        # Vim fork (https://neovim.io/) (https://github.com/neovim/neovim)
-brew "pylint"        # Python linter (https://github.com/pylint-dev/pylint)
-brew "scc"           # Tool for counting code lines
-brew "shellcheck"    # Shell script static analysis tool (https://github.com/koalaman/shellcheck)
-# brew "swiftlint"   # Swift linter (https://github.com/realm/SwiftLint)
-brew "xcodes"
+brew "act"             # Run GitHub Actions locally (https://github.com/nektos/act)
+brew "aria2"           # Download manager
+brew "bfg"             # Repo cleaner (https://rtyley.github.io/bfg-repo-cleaner/)
+brew "bottom"          # System monitor (https://github.com/ClementTsang/bottom)
+brew "clang-format"    # C/C++ code formatter
+brew "difftastic"      # Structural diff based on syntax (https://github.com/Wilfred/difftastic)
+brew "fx"              # Terminal JSON viewer (https://github.com/antonmedv/fx)
+brew "gh"              # GitHub CLI (https://github.com/cli/cli)
+brew "git-cal"         # View commits calendar (https://github.com/k4rthik/git-cal)
+brew "git-delta"       # Syntax-highlighting pager for git (https://github.com/dandavison/delta)
+brew "git-extras"      # Git utilities (https://github.com/tj/git-extras)
+brew "git-filter-repo" # Git history rewriting (https://github.com/newren/git-filter-repo)
+brew "git-quick-stats" # Git repo stats (https://github.com/arzzen/git-quick-stats)
+brew "glow"            # Render markdown on the CLI, with pizzazz! (https://github.com/charmbracelet/glow)
+brew "hyperfine"       # CLI benchmarking (https://github.com/sharkdp/hyperfine)
+brew "neovim"          # Vim fork (https://neovim.io/) (https://github.com/neovim/neovim)
+brew "pandoc"          # Document converter (https://github.com/jgm/pandoc)
+brew "procs"           # ps replacement (https://github.com/dalance/procs)
+brew "pylint"          # Python linter (https://github.com/pylint-dev/pylint)
+brew "ruff"            # Python linter+formatter (https://github.com/astral-sh/ruff)
+brew "rustup"          # Rust toolchain manager (https://rustup.rs/)
+brew "sfml"            # Multimedia library (https://github.com/SFML/SFML)
+brew "shellcheck"      # Shell script static analysis tool (https://github.com/koalaman/shellcheck)
+brew "swiftgen"        # Swift code generation (https://github.com/SwiftGen/SwiftGen)
+brew "swiftlint"       # Swift linter (https://github.com/realm/SwiftLint)
+brew "tokei"           # Tool for counting code lines (https://github.com/XAMPPRocky/tokei)
+brew "tuist"           # Xcode project generation (https://github.com/tuist/tuist)
+brew "uv"              # Python package manager (https://github.com/astral-sh/uv)
+brew "xcbeautify"      # Xcode build output formatter (https://github.com/cpisciotta/xcbeautify)
+brew "xcodes"          # Xcode version manager
+brew "yamllint"        # YAML linter
 
-cask "gitup"
-cask "vscodium"
-cask "wwdc"
-cask "xcodes"
+cask "gitup"    # Git GUI
+cask "vscodium" # Code editor
+cask "wwdc"     # WWDC session videos
+cask "xcodes"   # Xcode version manager GUI

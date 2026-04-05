@@ -16,8 +16,15 @@
 	untracked = red
 
 [core]
-	pager = diff-so-fancy | less --tabs=3 -RF
+	pager = delta
 	editor = nvim
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
 
 [status]
 	submoduleSummary = true

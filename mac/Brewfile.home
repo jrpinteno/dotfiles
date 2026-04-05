@@ -1,13 +1,18 @@
 puts "Homebrew - Setting up home..."
 
-cask "calibre"
-cask "chatgpt"
-cask "discord"
-cask "google-chrome"
-cask "iina"
-cask "logi-options+"
-cask "signal"
-cask "slack"
-cask "telegram"
-cask "vial"
-cask "whatsapp"
+cask "calibre"                                      # E-book management
+cask "chatgpt"                                      # ChatGPT desktop app
+cask "discord"                                      # Communication
+cask "freetube", args: { no_quarantine: true }      # Privacy-focused YouTube client
+cask "google-chrome"                                # Browser
+cask "handbrake"                                    # Video transcoder
+cask "iina"                                         # Video player
+cask "kindle-previewer"                             # Ebook previewer
+cask "librewolf", args: { no_quarantine: true }     # Privacy-focused browser
+cask "lm-studio", args: { appdir: "/Applications" } # Local LLMs
+cask "logi-options+"                                # Logitech device management
+cask "signal"                                       # Secure messaging
+cask "slack"                                        # Team communication
+cask "telegram"                                     # Messaging
+cask "vial"                                         # Keyboard programming
+cask "whatsapp"                                     # Messaging

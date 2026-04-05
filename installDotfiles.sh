@@ -23,21 +23,24 @@ create_symlink() {
 		return
 	fi
 
-	if [ -e "$destination" ]; then
-		print_message "$RED" "Error: $destination already exists as a $(file "$destination" | awk '{print $2}')"
-		return
-	fi
-
 	if [ -L "$destination" ]; then
 		read -rp "Override existing symlink $destination? (y/N) " consent
 
 		if [ "$consent" == "y" ] || [ "$consent" == "Y" ]; then
 			ln -sf "$source" "$destination"
+			print_message "$GREEN" "Symlink updated for $label."
 		fi
-	else
-		ln -s "$source" "$destination"
+		return
 	fi
 
+	if [ -e "$destination" ]; then
+		local file_type
+		file_type="$(file "$destination" | awk '{print $2}')"
+		print_message "$RED" "Error: $destination already exists as a $file_type"
+		return
+	fi
+
+	ln -s "$source" "$destination"
 	print_message "$GREEN" "Symlink created for $label."
 }
 
@@ -56,12 +59,7 @@ clone_dotfiles() {
 		exit 1
 	}
 
-	git remote set-url origin git@github.com:jrpinteno/dotfiles.git
-
-	# if [ "$is_mac" = true ]; then
-	# 	create_symlink "$dotfiles_directory/mac/Xcode/Templates" "$HOME/Library/Developer/Xcode/Templates"
-	# 	create_symlink "$dotfiles_directory/mac/Xcode/UserData" "$HOME/Library/Developer/Xcode/UserData"
-	# fi
+	git -C "$dotfiles_directory" remote set-url origin git@github.com:jrpinteno/dotfiles.git
 }
 
 install_oh_my_zsh() {
@@ -77,20 +75,21 @@ install_oh_my_zsh() {
 		exit 1
 	}
 
-	create_symlink "$HOME/dotfiles/zsh/.zshrc" "$HOME/.zshrc" ".zshrc"
+	create_symlink "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc" ".zshrc"
 
 	print_message "$GREEN" "Oh My Zsh successfully installed."
 }
 
 install_homebrew() {
 	if command -v brew &> /dev/null; then
-		print_message "$GREEN" "Homebrew is already installed."∫
+		print_message "$GREEN" "Homebrew is already installed."
 		return
 	fi
 
 	local homebrew_config_dir="$XDG_CONFIG_HOME/homebrew"
 	mkdir -p "$homebrew_config_dir"
-	echo "HOMEBREW_USER_ENVIRONMENT=$DOTFILES_ENV" >> "$homebrew_config_dir/brew.env"
+	grep -q "HOMEBREW_USER_ENVIRONMENT" "$homebrew_config_dir/brew.env" 2>/dev/null || \
+		echo "HOMEBREW_USER_ENVIRONMENT=$DOTFILES_ENV" >> "$homebrew_config_dir/brew.env"
 	mkdir -p "$HOME/Library/LaunchAgents"
 
 	print_message "$CYAN" "Installing Homebrew..."
@@ -103,8 +102,10 @@ install_homebrew() {
 	print_message "$GREEN" "Homebrew installed successfully."
 	print_message "$CYAN" "Setting Homebrew environment..."
 
-	echo >> "$HOME/.zprofile"
-	echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
+	grep -q 'brew shellenv' "$HOME/.zprofile" 2>/dev/null || {
+		echo >> "$HOME/.zprofile"
+		echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
+	}
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 
 	create_symlink "$HOME/dotfiles/mac/Brewfile" "$homebrew_config_dir/Brewfile" "Brewfile (macOS only)"
@@ -131,6 +132,12 @@ brew_packages() {
 	}
 
 	brew autoupdate start 86400
+
+	# Initialize broot shell integration
+	if command -v broot &> /dev/null; then
+		broot --install
+	fi
+
 	print_message "$GREEN" "Homebrew packages installed successfully."
 }
 
@@ -141,11 +148,15 @@ create_config_symlinks() {
 
 	create_symlink "$dotfiles_directory/git/gitconfig" "$HOME/.gitconfig" ".gitconfig"
 	create_symlink "$dotfiles_directory/nvim" "$XDG_CONFIG_HOME/nvim" "NeoVim"
+
+	if [[ "$DOTFILES_ENV" == *dev* ]]; then
+		create_symlink "$dotfiles_directory/zsh/zshrc_dev" "$HOME/.zshrc_dev" ".zshrc_dev"
+	fi
 }
 
 main() {
 	if [[ -z "$1" ]]; then
-		print_message "$RED" "Usage: $0 [home|work] [--only-dotfiles]"
+		print_message "$RED" "Usage: $0 [home|work] [--only-dotfiles | --dev]"
 		exit 1
 	fi
 
@@ -190,6 +201,7 @@ main() {
 	if [ "$only_dotfiles" = true ] && [ "$dev_environment" = true ]; then
 		print_message "$RED" "Can't combine --only-dotfiles with --dev"
 		print_message "$CYAN" "Usage: $0 [home|work] [--only-dotfiles | --dev]"
+		exit 1
 	fi
 
 	if [ "$dev_environment" = true ]; then
@@ -197,12 +209,17 @@ main() {
 	fi
 
 	# Install Xcode CLI tools, required to use git
-	command -v "xcode-select -p" >/dev/null 2>&1; has_xcode=1 || { has_xcode=0; }
-	if [ "$has_xcode" -eq 0 ]; then
-		echo "Installing XCode CLI Tools..."
-		sudo xcode-select --install
+	if ! xcode-select -p &> /dev/null; then
+		print_message "$CYAN" "Installing Xcode CLI Tools..."
+		xcode-select --install
+
+		print_message "$CYAN" "Waiting for Xcode CLI Tools to finish installing..."
+		until xcode-select -p &> /dev/null; do
+			sleep 5
+		done
+		print_message "$GREEN" "Xcode CLI Tools installed."
 	else
-		 xcode-select -p
+		print_message "$GREEN" "Xcode CLI Tools already installed."
 	fi
 
 	export XDG_CONFIG_HOME="$HOME/.config"
@@ -211,8 +228,10 @@ main() {
 	install_oh_my_zsh
 
 	local zshenv_file="$HOME/.zshenv"
-	echo "export DOTFILES_ENV=$DOTFILES_ENV" >> "$zshenv_file"
-	echo "export XDG_CONFIG_HOME=$HOME/.config" >> "$zshenv_file"
+	grep -q "DOTFILES_ENV" "$zshenv_file" 2>/dev/null || \
+		echo "export DOTFILES_ENV=\"$DOTFILES_ENV\"" >> "$zshenv_file"
+	grep -q "XDG_CONFIG_HOME" "$zshenv_file" 2>/dev/null || \
+		echo "export XDG_CONFIG_HOME=$HOME/.config" >> "$zshenv_file"
 	export DOTFILES_ENV
 	export XDG_CONFIG_HOME
 

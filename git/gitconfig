@@ -16,45 +16,91 @@
 	untracked = red
 
 [core]
-	pager = delta
+	pager = delta                                  # Syntax-highlighting diff pager
 	editor = nvim
-	excludesFile = ~/dotfiles/git/gitignore_global
+	excludesFile = ~/dotfiles/git/gitignore_global # Global gitignore
+	untrackedCache = true                          # Faster git status
 
 [interactive]
-	diffFilter = delta --color-only
+	diffFilter = delta --color-only # Colorize interactive diffs
 
 [delta]
-	navigate = true
-	side-by-side = true
+	hyperlinks = true    # Clickable file paths in terminal
+	line-numbers = true  # Show line numbers in diffs
+	navigate = true      # Navigate between diff sections with n/N
+	side-by-side = true  # Two-column diff view
+
+[commit]
+	verbose = true # Show diff in commit message editor
+
+[branch]
+	sort = -committerdate # Most recent branches first
+
+[column]
+	ui = auto # Columnar output for branch/tag lists
+
+[diff]
+	algorithm = histogram                   # Better diff output
+	colorMoved = plain                      # Highlight moved code
+	colorMovedWS = allow-indentation-change # Detect re-indented moves
+	mnemonicPrefix = true                   # i/w/c prefixes instead of a/b
 
 [status]
-	submoduleSummary = true
+	submoduleSummary = true # Show submodule changes in status
+
+[fetch]
+	prune = true     # Remove deleted remote branches
+	pruneTags = true # Remove deleted remote tags
+
+[pull]
+	rebase = true # Rebase instead of merge on pull
+
+[help]
+	autocorrect = prompt
+
+[merge]
+	conflictStyle = zdiff3 # Show base + both sides in conflicts
 
 [push]
-	autoSetupRemote = true
+	autoSetupRemote = true # Auto-track remote branch on first push
+
+[tag]
+	sort = version:refname # Semver-aware tag sorting
 
 [alias]
-	amend = commit --amend
-	ci = commit
-	co = checkout
-	cb = checkout -b
-	cp = cherry-pick
-	pushfl = push --force-with-lease
-	ra = rebase --abort
-	rc = rebase --continue
-	ri = rebase --interactive
+	# Branching
+	br = branch -m            # Rename current branch
+	cb = checkout -b          # Create and switch to new branch
+	co = checkout             # Switch branch
+	dev = checkout develop    # Switch to develop
+	main = checkout main      # Switch to main
+	master = checkout master  # Switch to master
 
-	# List all aliases
-	la = "!git config -l | grep alias | cut -c 7-"
-	logg = log --graph --decorate --oneline --all
+	# Commits
+	amend = commit --amend      # Amend last commit
+	ci = commit                 # Commit
+	cp = cherry-pick            # Cherry-pick a commit
+	wip = commit -am "wip"      # Quick save-all as wip
+	soft = reset --soft HEAD^   # Undo commit, keep staged
+	undo = reset HEAD~1 --mixed # Undo commit, keep unstaged
+	unstage = reset HEAD        # Unstage files
 
-	# Diff only staged files
-	dfs = diff --staged
-	main = checkout main
-	master = checkout master
-	dev = checkout develop
-	soft = reset --soft HEAD^
+	# Rebase
+	ra = rebase --abort       # Abort rebase
+	rc = rebase --continue    # Continue rebase
+	ri = rebase --interactive # Interactive rebase
 
-	# Show details about most recent commit
-	last = log -1 HEAD --stat
+	# Diff & status
+	dfs = diff --staged # Diff staged files
+	st = status -s      # Short status
+
+	# Log
+	last = log -1 HEAD --stat                     # Details of last commit
+	logg = log --graph --decorate --oneline --all # Graph log
+
+	# Push
+	pushfl = push --force-with-lease # Force push (safe)
+
+	# Meta
+	la = "!git config --get-regexp ^alias\\\\." # List all aliases
 
